@@ -1,0 +1,22 @@
+---
+
+version: '3.6'
+services:
+  icinga2:
+    build: docker/icinga2
+  thruk:
+    build: docker/thruk
+    environment:
+      THRUK_LOG_LEVEL: INFO
+      APACHE_ERROR_LOG: "on"
+      APACHE_ACCESS_LOG: "off"
+      BACKEND_NAME: Icinga2
+      BACKEND_ADDRESS: icinga2:6558
+      BACKEND_LMD: "on"
+      BACKEND_ICINGA_FEATURES: "on"
+    ports:
+      - 8123:80
+#  check_mk:
+#    image: checkmk/check-mk-raw:1.6.0p6
+#    ports:
+#      - 5000:5000
